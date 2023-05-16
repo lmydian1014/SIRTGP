@@ -1,5 +1,6 @@
 # SIRTGP
 Author: Moyan Li
+
 An R package for performing the Bayesian time-varying classification with signal interactions via relaxed thresholded Gaussian Process
 ### Install and load the package
 ```
