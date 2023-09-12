@@ -13,7 +13,7 @@ devtools::install_github("lmydian1014/SIRTGP")
 library(SIRTGP)
 ```
 
-### generate data 
+### Generate data 
 ```
 n_train = 12*19*10
 n_test = 12*19*5
@@ -25,7 +25,7 @@ dat = gen_data(n = n_train, n_test = n_test, d = 1L, K = K, rt = rt, grids_lim =
 
 ```
 
-### initialize parameters
+### Initialize parameters
 ```
 Xmat = dat$Xmat
 lambda = dat$lambda
@@ -53,15 +53,11 @@ chain = SIRTGP_fit(T, K, L, n_train, Y_train, X_train, X0_train, Xmat, eta_init,
 ```
 
 
-
-
-
-
 ### Analysis the MCMC chain 
 ```
-res = analysis_chain_bci_no_M(T, burn_in, K, rt, n_test, chain, X_test, X0_test, Xmat)
+res = SIRTGP_summary(T, burn_in, K, rt, n_test, chain, X_test, X0_test, Xmat)
 ```
-### calculate classfication accuracy
+### Calculate classfication accuracy
 ```
 p = (pnorm(res[[1]][,(burn_in+1):T]))
 Y_chain = matrix(0, nrow = n_test, ncol = (T-burn_in))
