@@ -77,7 +77,7 @@ sample_thres2 <- function(n, K, Z, X0, val, prob2, eta, eta_hat, SR, tausq) {
     .Call(`_SIRTGP_sample_thres2`, n, K, Z, X0, val, prob2, eta, eta_hat, SR, tausq)
 }
 
-gibbs_sample_cpp <- function(T, K, L, n, Y, X, X0, Xmat, eta, eta_m, e, E_hat, eta_hat, beta0, thres1, thres2, lambda, tausq, sigsq, sigsq_eta, rt, alpha1, alpha2, prob1, prob2, val1, val2) {
-    .Call(`_SIRTGP_gibbs_sample_cpp`, T, K, L, n, Y, X, X0, Xmat, eta, eta_m, e, E_hat, eta_hat, beta0, thres1, thres2, lambda, tausq, sigsq, sigsq_eta, rt, alpha1, alpha2, prob1, prob2, val1, val2)
+SIRTGP_fit <- function(T, K, L, n, Y, X, X0, Xmat, eta, eta_m, e, E_hat, eta_hat, beta0, thres1, thres2, lambda, tausq, sigsq, sigsq_eta, rt, alpha1, alpha2, prob1, prob2, val1, val2) {
+    .Call(`_SIRTGP_SIRTGP_fit`, T, K, L, n, Y, X, X0, Xmat, eta, eta_m, e, E_hat, eta_hat, beta0, thres1, thres2, lambda, tausq, sigsq, sigsq_eta, rt, alpha1, alpha2, prob1, prob2, val1, val2)
 }
 
