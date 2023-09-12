@@ -140,7 +140,10 @@ gen_data_sim = function(K = 6, rt = 30, num_charater = 19, train_seq = 15, test_
         'charater_train' = charater_train, 'charater_test' = charater_test, 'code_train' = code_train, 'code_test' = code_test))
 }
 
-gen_data = function(n = 100, n_test = 100, d = 1L, K = 16, rt = 26, grids_lim = c(-1,1), random = FALSE, poly_degree = 8L,
+
+
+
+gen_data = function(n_train = 100, n_test = 100, d = 1L, K = 16, rt = 26, grids_lim = c(-1,1), random = FALSE, poly_degree = 8L,
               a = 0.1, b = 1, center = NULL, rate = NULL, max_range = 6, thres1 = 0, thres2 = 0, tausq = 0.01, sigsq = 0.0001){
     # 1 for train 2 for test
     set.seed(1)
@@ -169,22 +172,22 @@ gen_data = function(n = 100, n_test = 100, d = 1L, K = 16, rt = 26, grids_lim = 
     beta = E/(K*rt) * G_thres(abs(E_hat), thres1)
     beta0 = eta/V0 * G_thres(abs(eta_hat), thres2)  
 
-    X = matrix(nrow = rt*K, ncol = n)
+    X_train = matrix(nrow = rt*K, ncol = n_train)
     X_test = matrix(nrow = rt*K, ncol = n_test)
     for(iter in c(1:K)){
         print(iter)
-        X[((iter-1)*rt+1) : (iter*rt),] = Xmat %*% matrix(rnorm(n*L,mean=0,sd=sqrt(lambda)), nrow = L) ## (T*L) * (L*n)
+        X_train[((iter-1)*rt+1) : (iter*rt),] = Xmat %*% matrix(rnorm(n_train*L,mean=0,sd=sqrt(lambda)), nrow = L) ## (T*L) * (L*n)
         X_test[((iter-1)*rt+1) : (iter*rt),] = Xmat %*% matrix(rnorm(n_test*L,mean=0,sd=sqrt(lambda)), nrow = L) ## (T*L) * (L*n_test)
     }
 
-    X0 = matrix(NA, nrow = K*(K-1)/2, ncol = n)
+    X0_train = matrix(NA, nrow = K*(K-1)/2, ncol = n_train)
     X0_test = matrix(NA, nrow = K*(K-1)/2, ncol = n_test)
    
-    for(i in c(1:n)){
+    for(i in c(1:n_train)){
         for(u in c(1:(K-1))){
             for(v in c((u+1): K)){
                 id = (2*K-2-u)*(u-1)/2 + v-1
-                X0[id,i] = cor(X[((u-1)*rt+1):(u*rt),i], X[((v-1)*rt+1):(v*rt),i])
+                X0_train[id,i] = cor(X_train[((u-1)*rt+1):(u*rt),i], X_train[((v-1)*rt+1):(v*rt),i])
             }
         }
     }
@@ -196,24 +199,24 @@ gen_data = function(n = 100, n_test = 100, d = 1L, K = 16, rt = 26, grids_lim = 
             }
         }
     }
-    Y = rep(0, n)
+    Y_train = rep(0, n_train)
     Y_test = rep(0, n_test)
     
     for(iter in c(1:K)){
-        Y = Y + colSums(c(beta[,iter]) * X[((iter-1)*rt+1):(iter*rt), ])
+        Y_train = Y_train + colSums(c(beta[,iter]) * X_train[((iter-1)*rt+1):(iter*rt), ])
         Y_test = Y_test + colSums(c(beta[,iter]) * X_test[((iter-1)*rt+1):(iter*rt), ])
     }
-    Y = Y + colSums(beta0 * X0)
+    Y_train = Y_train + colSums(beta0 * X0_train)
     Y_test = Y_test + colSums(beta0 * X0_test)
     #Y = Y + (beta0 %*% X0)
-    eps = rnorm(n, mean = 0, sd = sqrt(tausq))
-    Y = Y + eps
+    eps = rnorm(n_train, mean = 0, sd = sqrt(tausq))
+    Y_train = Y_train + eps
 
     E_hat_v = c()
     for(i in c(1:ncol(E_hat))){
         E_hat_v = c(E_hat_v, E_hat[,i])
     }
-    p = pnorm(Y-eps)
+    p = pnorm(Y_train-eps)
     # print(range(Y))
     # print(range(eps))
     # print(range(p))
@@ -221,16 +224,16 @@ gen_data = function(n = 100, n_test = 100, d = 1L, K = 16, rt = 26, grids_lim = 
     #R_sq = sum((p - mean(p))^2)/sum(p*(1-p))
     #SNR = R_sq/(1-R_sq)
     
-    SNR = sum((Y-eps - mean(Y))^2)/sum(eps^2)
+    SNR = sum((Y_train-eps - mean(Y_train))^2)/sum(eps^2)
     R_sq = SNR/(1+SNR)
-    Y_cat = Y
+    Y_train_cat = Y_train
     Y_test_cat = Y_test
-    for(i in c(1:n)){
-        if(Y[i]>0){
-            Y_cat[i] = 1
+    for(i in c(1:n_train)){
+        if(Y_train[i]>0){
+            Y_train_cat[i] = 1
         }
         else{
-            Y_cat[i] = 0
+            Y_train_cat[i] = 0
         }
     }
     for(i in c(1:n_test)){
@@ -242,9 +245,9 @@ gen_data = function(n = 100, n_test = 100, d = 1L, K = 16, rt = 26, grids_lim = 
         }
     }
 
-    return(list('grids' = grids, 'X' = X, 'X0' = X0, 'X_test' = X_test, 'X0_test' = X0_test, 'Y' = Y_cat, 'Y_test' = Y_test_cat, 
+    return(list('grids' = grids, 'X_train' = X_train, 'X0_train' = X0_train, 'X_test' = X_test, 'X0_test' = X0_test, 'Y_train' = Y_train_cat, 'Y_test' = Y_test_cat, 
         'lambda' = lambda, 'Xmat' = Xmat, 'E' = E, 'E_hat' = E_hat_v, 'eta' = eta, 'eta_hat' = eta_hat, 
-      'e' = e, 'beta' = beta, 'beta0' = beta0, 'SNR' = SNR, 'R_sq' = R_sq, 'Z' = Y-eps, 'eps' = eps,'p' = p))
+      'e' = e, 'beta' = beta, 'beta0' = beta0, 'SNR' = SNR, 'R_sq' = R_sq, 'Z' = Y_train-eps, 'eps' = eps,'p' = p))
 }
 
 
