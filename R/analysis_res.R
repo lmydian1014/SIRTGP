@@ -110,3 +110,8 @@ SIRTGP_summary = function(T, burn_in, K, rt, n, chain, X, X0, Xmat){
 
 
 
+G_thres = function(x, thres){
+	return(ifelse(x > thres, 1, 0))
+}
+
+
