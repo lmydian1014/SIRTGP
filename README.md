@@ -1,4 +1,4 @@
-# SIRTGP
+# BAYESIAN TIME-VARYING REGRESSION WITH SIGNAL INTERACTIONS VIA THE RELAXED THRESHOLDED GAUSSIAN PROCESS
 
 An R package for performing the Bayesian time-varying classification with signal interactions via relaxed thresholded Gaussian Process
 ### Install and load the package
