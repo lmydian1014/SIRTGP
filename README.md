@@ -1,4 +1,4 @@
-# BAYESIAN TIME-VARYING REGRESSION WITH SIGNAL INTERACTIONS VIA THE RELAXED THRESHOLDED GAUSSIAN PROCESS
+# Bayesian Time-varying Regression with Signal Interactions via the Relaxed Thresholded Gaussian Process
 
 An R package for performing the Bayesian time-varying classification with signal interactions via relaxed thresholded Gaussian Process
 ### Install and load the package
