@@ -11,7 +11,7 @@
 extern SEXP _SIRTGP_fun_dev(SEXP, SEXP);
 extern SEXP _SIRTGP_fun_mul(SEXP, SEXP);
 extern SEXP _SIRTGP_G_thres_cpp(SEXP, SEXP);
-extern SEXP _SIRTGP_gibbs_sample_cpp(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _SIRTGP_SIRTGP_fit(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _SIRTGP_loglike_cpp(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _SIRTGP_quantile_cpp(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _SIRTGP_rcpparma_bothproducts(SEXP);
@@ -33,7 +33,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_SIRTGP_fun_dev",               (DL_FUNC) &_SIRTGP_fun_dev,                2},
     {"_SIRTGP_fun_mul",               (DL_FUNC) &_SIRTGP_fun_mul,                2},
     {"_SIRTGP_G_thres_cpp",           (DL_FUNC) &_SIRTGP_G_thres_cpp,            2},
-    {"_SIRTGP_gibbs_sample_cpp",      (DL_FUNC) &_SIRTGP_gibbs_sample_cpp,      27},
+    {"_SIRTGP_SIRTGP_fit",      (DL_FUNC) &_SIRTGP_SIRTGP_fit,      27},
     {"_SIRTGP_loglike_cpp",           (DL_FUNC) &_SIRTGP_loglike_cpp,            5},
     {"_SIRTGP_quantile_cpp",          (DL_FUNC) &_SIRTGP_quantile_cpp,           4},
     {"_SIRTGP_rcpparma_bothproducts", (DL_FUNC) &_SIRTGP_rcpparma_bothproducts,  1},
