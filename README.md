@@ -34,7 +34,7 @@ prob1 = c(1,0,0); prob2 = c(1,0,0)
 val1 = c(0, 0.1, 1); val2 = c(0, 0.1, 1)
 e_init = dat$e
 eta_init = dat$eta
-sigsq_eta = sigsq
+sigsq_eta = 1
 eta_m_init = matrix(0, nrow = K, ncol = K)
 eta_m_init[lower.tri(eta_m_init, diag=FALSE)] = eta_init
 eta_m_init = t(eta_m_init)
