@@ -168,9 +168,11 @@ gen_data = function(n_train = 100, n_test = 100, d = 1L, K = 16, rt = 26, grids_
     E = Xmat %*% e ### (T*L)*(L*K) = T*K
     
     E_hat = matrix(rnorm(length(E), mean = E, sd = sqrt(sigsq)), ncol = K)
-    
-    beta = E/(K*rt) * G_thres(abs(E_hat), thres1)
-    beta0 = eta/V0 * G_thres(abs(eta_hat), thres2)  
+
+    beta = E/(K*rt) * ifelse(abs(E_hat) > thres1, 1, 0)
+    beta0 = eta/V0 * ifelse(abs(eta_hat) > thres2, 1, 0)
+    #beta = E/(K*rt) * G_thres(abs(E_hat), thres1)
+    #beta0 = eta/V0 * G_thres(abs(eta_hat), thres2)  
 
     X_train = matrix(nrow = rt*K, ncol = n_train)
     X_test = matrix(nrow = rt*K, ncol = n_test)
