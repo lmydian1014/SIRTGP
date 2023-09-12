@@ -317,9 +317,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// gibbs_sample_cpp
-List gibbs_sample_cpp(int T, int K, int L, int n, vec Y, mat X, mat X0, mat Xmat, vec eta, mat eta_m, mat e, vec E_hat, vec eta_hat, double beta0, double thres1, double thres2, vec lambda, double tausq, double sigsq, double sigsq_eta, int rt, double alpha1, double alpha2, vec prob1, vec prob2, vec val1, vec val2);
-RcppExport SEXP _SIRTGP_gibbs_sample_cpp(SEXP TSEXP, SEXP KSEXP, SEXP LSEXP, SEXP nSEXP, SEXP YSEXP, SEXP XSEXP, SEXP X0SEXP, SEXP XmatSEXP, SEXP etaSEXP, SEXP eta_mSEXP, SEXP eSEXP, SEXP E_hatSEXP, SEXP eta_hatSEXP, SEXP beta0SEXP, SEXP thres1SEXP, SEXP thres2SEXP, SEXP lambdaSEXP, SEXP tausqSEXP, SEXP sigsqSEXP, SEXP sigsq_etaSEXP, SEXP rtSEXP, SEXP alpha1SEXP, SEXP alpha2SEXP, SEXP prob1SEXP, SEXP prob2SEXP, SEXP val1SEXP, SEXP val2SEXP) {
+// SIRTGP_fit
+List SIRTGP_fit(int T, int K, int L, int n, vec Y, mat X, mat X0, mat Xmat, vec eta, mat eta_m, mat e, vec E_hat, vec eta_hat, double beta0, double thres1, double thres2, vec lambda, double tausq, double sigsq, double sigsq_eta, int rt, double alpha1, double alpha2, vec prob1, vec prob2, vec val1, vec val2);
+RcppExport SEXP _SIRTGP_SIRTGP_fit(SEXP TSEXP, SEXP KSEXP, SEXP LSEXP, SEXP nSEXP, SEXP YSEXP, SEXP XSEXP, SEXP X0SEXP, SEXP XmatSEXP, SEXP etaSEXP, SEXP eta_mSEXP, SEXP eSEXP, SEXP E_hatSEXP, SEXP eta_hatSEXP, SEXP beta0SEXP, SEXP thres1SEXP, SEXP thres2SEXP, SEXP lambdaSEXP, SEXP tausqSEXP, SEXP sigsqSEXP, SEXP sigsq_etaSEXP, SEXP rtSEXP, SEXP alpha1SEXP, SEXP alpha2SEXP, SEXP prob1SEXP, SEXP prob2SEXP, SEXP val1SEXP, SEXP val2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -350,7 +350,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< vec >::type prob2(prob2SEXP);
     Rcpp::traits::input_parameter< vec >::type val1(val1SEXP);
     Rcpp::traits::input_parameter< vec >::type val2(val2SEXP);
-    rcpp_result_gen = Rcpp::wrap(gibbs_sample_cpp(T, K, L, n, Y, X, X0, Xmat, eta, eta_m, e, E_hat, eta_hat, beta0, thres1, thres2, lambda, tausq, sigsq, sigsq_eta, rt, alpha1, alpha2, prob1, prob2, val1, val2));
+    rcpp_result_gen = Rcpp::wrap(SIRTGP_fit(T, K, L, n, Y, X, X0, Xmat, eta, eta_m, e, E_hat, eta_hat, beta0, thres1, thres2, lambda, tausq, sigsq, sigsq_eta, rt, alpha1, alpha2, prob1, prob2, val1, val2));
     return rcpp_result_gen;
 END_RCPP
 }
