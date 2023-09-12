@@ -22,7 +22,6 @@ rt = 26 #number of time points collected on each channel
 tausq = 0.001; sigsq = 0.0001
 thres1 = 0.0; thres2 = 0.0
 dat = gen_data(n = n_train, n_test = n_test, d = 1L, K = K, rt = rt, grids_lim = c(0,1), a = 0.1, b = 10, thres1 = thres1, thres2 = thres2, tausq = tausq, sigsq = sigsq)
-
 ```
 
 ### Initialize parameters
@@ -48,14 +47,14 @@ eta_hat_init = dat$eta_hat
 ```
 T = 1000
 burn_in = 200
-chain = SIRTGP_fit(T, K, L, n_train, Y_train, X_train, X0_train, Xmat, eta_init, eta_m_init, e_init, E_hat_init, eta_hat_init, 0, thres1, thres2, lambda, 
+chain = SIRTGP_fit(T, K, L, n_train, dat$Y_train, dat$X_train, dat$X0_train, Xmat, eta_init, eta_m_init, e_init, E_hat_init, eta_hat_init, 0, thres1, thres2, lambda, 
                       tausq, sigsq, sigsq_eta, rt, alpha1, alpha2, prob1, prob2, val1, val2)
 ```
 
 
 ### Analysis the MCMC chain 
 ```
-res = SIRTGP_summary(T, burn_in, K, rt, n_test, chain, X_test, X0_test, Xmat)
+res = SIRTGP_summary(T, burn_in, K, rt, n_test, chain, dat$X_test, dat$X0_test, Xmat)
 ```
 ### Calculate classfication accuracy
 ```
