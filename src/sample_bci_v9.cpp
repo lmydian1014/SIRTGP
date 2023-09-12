@@ -352,7 +352,7 @@ vec sample_thres2(int n, int K, vec Z, mat X0, vec val, vec prob2, mat eta, vec 
 }
 
 // [[Rcpp::export]]
-List gibbs_sample_cpp(int T, int K, int L, int n, vec Y, mat X, mat X0, mat Xmat, vec eta, mat eta_m, mat e, vec E_hat, vec eta_hat, double beta0,
+List SIRTGP_fit(int T, int K, int L, int n, vec Y, mat X, mat X0, mat Xmat, vec eta, mat eta_m, mat e, vec E_hat, vec eta_hat, double beta0,
 	double thres1, double thres2, vec lambda, double tausq, double sigsq, double sigsq_eta, int rt, double alpha1, double alpha2, vec prob1, vec prob2, vec val1, vec val2){
 
 	//Clock clock;
@@ -426,13 +426,6 @@ List gibbs_sample_cpp(int T, int K, int L, int n, vec Y, mat X, mat X0, mat Xmat
 	vec prob2_temp = prob2;
 	vec val1_temp = val1;
 	vec val2_temp = val2;
-
-	Rcout << "hello1" << endl;
-	Rcout << temp_loglike << endl;
-	Rcout << "hello2" << endl;
-
-	//clock.tick("time");
-	//vec SM_other;
 	vec S0_other;
 	vec SR_other;
 	
@@ -543,9 +536,8 @@ List gibbs_sample_cpp(int T, int K, int L, int n, vec Y, mat X, mat X0, mat Xmat
 		S0_record.col(t+1) = S0;
 
 	}
-	/*clock.tock("time");
-	clock.stop("naptimes");*/
-	Rcout << "finish" << endl;
+	
+
 	List chain = List::create(Named("e") = e_record , _["eta"] = eta_record, _["E_hat"] = E_hat_record, _["eta_hat"] = eta_hat_record, _["loglike"] = loglike_record, 
 		_["Z"] = Z_record, _["SR"] = SR_record, _["S0"] = S0_record, _["thres1"] = thres1_record, _["thres2"] = thres2_record, _["intecept"] = beta0_record);
 	//e : L*(K*T); eta and eta_hat: V0(120)*T; E_hat: rt*K(416)*T; 
