@@ -58,7 +58,7 @@ res = SIRTGP_summary(T, burn_in, K, rt, n_test, chain, dat$X_test, dat$X0_test, 
 ```
 ### Calculate classfication accuracy
 ```
-p = (pnorm(res[[1]][,(burn_in+1):T]))
+p = pnorm(res[[1]][,(burn_in+1):T])
 Y_chain = matrix(0, nrow = n_test, ncol = (T-burn_in))
 for(i in c(1:nrow(p))){
     Y_chain[i,] = rbernoulli(T-burn_in, p[i,])
